@@ -7,6 +7,9 @@ import ModuleRoutes from './Kanbas/Modules/routes.js';
 import AssignmentRoutes from './Kanbas/Assignments/routes.js';
 
 const app = express()
+app.get("/", (_, res) => {
+	res.send("Node Server App. To visit the Lab 5 Materials, append to `/lab5/` to the url. To visit the Kanbas Materials, `/api/courses/` and paths like that to the url.");
+});
 app.use(cors());
 app.use(express.json());
 CourseRoutes(app);
