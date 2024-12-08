@@ -15,8 +15,10 @@ app.get("/", (_, res) => {
 });
 app.use(
 	cors({
+		origin: process.env.NODE_ENV === "development"
+			? "http://localhost:3000" // Local frontend
+			: process.env.NETLIFY_URL, // Deployed frontend
 		credentials: true,
-		origin: process.env.NETLIFY_URL || "http://localhost:3000",
 	})
 );
 const sessionOptions = {
