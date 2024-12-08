@@ -1,10 +1,11 @@
 import Database from "../Database/index.js";
+import * as dao from "./dao.js";
 
 export default function CourseRoutes(app) {
 	app.get("/api/courses", (req, res) => {
-		const courses = Database.courses;
+		const courses = dao.findAllCourses();
 		res.send(courses);
-	})
+	});
 	app.post("/api/courses", (req, res) => {
 		const course = {
 			...req.body,
@@ -13,10 +14,11 @@ export default function CourseRoutes(app) {
 		Database.courses.push(course);
 		res.send(course);
 	})
-	app.delete("/api/courses/:id", (req, res) => {
-		const { id } = req.params;
-		Database.courses = Database.courses.filter((c) => c._id !== id);
-		res.sendStatus(204);
+	app.put("/api/courses/:courseId", (req, res) => {
+		const { courseId } = req.params;
+		const courseUpdates = req.body;
+		const status = dao.updateCourse(courseId, courseUpdates);
+		res.send(status);
 	});
 	app.put("/api/courses/:id", (req, res) => {
 		const { id } = req.params;

@@ -29,6 +29,7 @@
   "homepage": "https://github.com/Nakul-27/kanbas-node-server-app#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1"
   }
 }
