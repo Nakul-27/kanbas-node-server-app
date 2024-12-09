@@ -11,11 +11,8 @@ import session from 'express-session';
 import mongoose from "mongoose";
 import PeopleRoutes from "./Kanbas/People/routes.js";
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING; // || "mongodb://127.0.0.1:27017/kanbas"
-mongoose.connect(CONNECTION_STRING, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-})
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas";
+mongoose.connect(CONNECTION_STRING)
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((err) => console.error("MongoDB connection error:", err));
 
@@ -23,23 +20,23 @@ const app = express();
 app.get("/", (_, res) => {
 	res.send("Node Server App. To visit the Lab 5 Materials, append to `/lab5/` to the url. To visit the Kanbas Materials, `/api/courses/` and paths like that to the url.");
 });
-app.use((req, res, next) => {
-	const requestOrigin = req.headers.origin;
-	const allowedOrigin =
-		process.env.NODE_ENV === "development"
-			? "http://localhost:3000"
-			: process.env.NETLIFY_URL;
-
-	console.log(`Request Origin: ${requestOrigin}`);
-	console.log(`Allowed Origin: ${allowedOrigin}`);
-
-	// Log a warning if the origin is not allowed
-	if (requestOrigin !== allowedOrigin) {
-		console.warn(`CORS warning: Origin ${requestOrigin} is not allowed.`);
-	}
-
-	next();
-});
+// app.use((req, res, next) => {
+// 	const requestOrigin = req.headers.origin;
+// 	const allowedOrigin =
+// 		process.env.NODE_ENV === "development"
+// 			? "http://localhost:3000"
+// 			: process.env.NETLIFY_URL;
+// 
+// 	console.log(`Request Origin: ${requestOrigin}`);
+// 	console.log(`Allowed Origin: ${allowedOrigin}`);
+// 
+// 	// Log a warning if the origin is not allowed
+// 	if (requestOrigin !== allowedOrigin) {
+// 		console.warn(`CORS warning: Origin ${requestOrigin} is not allowed.`);
+// 	}
+// 
+// 	next();
+// });
 
 app.use(
 	cors({
