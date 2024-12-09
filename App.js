@@ -36,12 +36,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-// CORS setup
 app.use(
 	cors({
-		origin: process.env.NODE_ENV === "development"
-			? "http://localhost:3000" // Local frontend
-			: process.env.NETLIFY_URL, // Deployed frontend
+		origin: "https://a6--spiffy-truffle-0cd1da.netlify.app",
 		credentials: true,
 	})
 );
