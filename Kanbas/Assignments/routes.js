@@ -1,4 +1,4 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
 import * as dao from "./dao.js";
 
 export default function AssignmentRoutes(app) {
@@ -7,6 +7,7 @@ export default function AssignmentRoutes(app) {
 		const assignments = dao.findAssignmentsByCourse(cid);
 		res.json(assignments);
 	});
+
 	app.post("/api/courses/:cid/assignments", (req, res) => {
 		const { cid } = req.params;
 		const newAssignment = dao.createAssignment({
@@ -15,18 +16,21 @@ export default function AssignmentRoutes(app) {
 		});
 		res.json(newAssignment);
 	});
-	app.delete("/api/assignments/:aid", (req, res) => {
+
+	app.delete("/api/assignments/:aid", async (req, res) => {
 		const { aid } = req.params;
-		dao.deleteAssignment(aid);
-		res.sendStatus(200);
+		const status = await dao.deleteAssignment(aid);
+		res.sendStatus(status);
 	});
-	app.put("/api/assignments/:aid", (req, res) => {
+
+	app.put("/api/assignments/:aid", async (req, res) => {
 		const { aid } = req.params;
-		const updatedAssignment = dao.updateAssignment(aid, req.body);
-		if (updatedAssignment) {
-			res.sendStatus(204);
-		} else {
-			res.sendStatus(404);
-		}
+		const status = await dao.updateAssignment(aid, req.body);
+		res.send(status);
+		// if (updatedAssignment) {
+		// 	res.sendStatus(204);
+		// } else {
+		// 	res.sendStatus(404);
+		// }
 	});
 }
