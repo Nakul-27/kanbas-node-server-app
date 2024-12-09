@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 
 app.use(
 	cors({
-		origin: "https://a6--spiffy-truffle-0cd1da.netlify.app",
+		origin: "https://a6--spiffy-truffle-0cd1da.netlify.app/",
 		credentials: true,
 	})
 );
