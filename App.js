@@ -8,8 +8,12 @@ import ModuleRoutes from './Kanbas/Modules/routes.js';
 import AssignmentRoutes from './Kanbas/Assignments/routes.js';
 import UserRoutes from "./Kanbas/Users/routes.js";
 import session from 'express-session';
+import mongoose from "mongoose";
 
-const app = express()
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
+mongoose.connect(CONNECTION_STRING);
+
+const app = express();
 app.get("/", (_, res) => {
 	res.send("Node Server App. To visit the Lab 5 Materials, append to `/lab5/` to the url. To visit the Kanbas Materials, `/api/courses/` and paths like that to the url.");
 });
